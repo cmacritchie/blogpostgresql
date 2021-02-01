@@ -1,4 +1,5 @@
 const express = require('express');
+const sessionChecker = require('../middleware/sessionCheck')
 const User = require('../models/userModel');
 const BlogPost = require('../models/blogModel');
 
@@ -31,14 +32,16 @@ router.post('/api/user', async (req, res) => {
     })
     try {
         await user.save()
-        req.session.user = user.dataValues.name
+        // req.session.user = user.dataValues.name
+        req.session.user = user.toJSON()
         res.status(201).send(user)
     } catch (e) {
         res.status(400).send(e)
     }
 })
 
-router.patch('/api/user/:id', async (req, res) => {
+
+router.patch('/api/user/:id', sessionChecker, async (req, res) => {
     try {
         const updatedUser = await User.update({ ...req.body }, {returning: true, where: {id: req.params.id}})
         return res.send(updatedUser)
@@ -47,7 +50,8 @@ router.patch('/api/user/:id', async (req, res) => {
     }
 })
 
-router.delete('/api/user/:id', async (req, res) => {
+//TEST LATER
+router.delete('/api/user/:id', sessionChecker, async (req, res) => {
     try {
         const userDelete = await User.destroy({ where: { id: req.params.id } })
         res.sendStatus(200)
@@ -56,6 +60,7 @@ router.delete('/api/user/:id', async (req, res) => {
     }
 })
 
+//TEST after querying
 router.get('/api/userposts/:id', async (req, res) => {
     try {
         const userPosts = await User.findOne({ include: [{model:BlogPost}], where: { id: req.params.id } });
@@ -65,6 +70,7 @@ router.get('/api/userposts/:id', async (req, res) => {
     }
 })
 
+//TEST
 router.post('/api/login', async (req, res) => {
     const { name, password } = req.body;
     const user = await User.findOne({ where: { name }})
@@ -75,12 +81,12 @@ router.post('/api/login', async (req, res) => {
         return res.status(404).send()
     }
     else {
-        req.session.user = user.dataValues
+        req.session.user = user.dataValues.toJSON()
         return res.status(200).send(user.toJSON())
     }
 })
 
-
+//TEST
 router.get('/api/me', (req, res) => {
     if (req.session.user && req.cookies.user_sid) {
         const user = User.build(req.session.user)
@@ -88,7 +94,7 @@ router.get('/api/me', (req, res) => {
     }
     return res.sendStatus(404)
 })
-
+//TEST
 router.post('/api/logout', (req, res) => {
     if (req.session.user && req.cookies.user_sid) {
         res.clearCookie('user_sid');
