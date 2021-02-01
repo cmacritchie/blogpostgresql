@@ -49,6 +49,7 @@ router.get('/api/blogpost/:id', async (req, res) => {
 })
 
 //upload image if you want
+//need to test TODO DELETE THIS COMMENT AFTER TEST
 // router.post('/api/blogpost',sessionChecker, async (req, res) => {
     router.post('/api/blogpost', sessionChecker, upload.single('upload'), async (req, res) => {   //uses upload header in key
     try {
@@ -60,7 +61,6 @@ router.get('/api/blogpost/:id', async (req, res) => {
             ...req.body,
             imageUrl: buffer
         })
-        console.log('blogpost', blogpost)
         await blogpost.save()
         res.status(201).send(blogpost)
     } catch (e) {
@@ -69,6 +69,7 @@ router.get('/api/blogpost/:id', async (req, res) => {
 })
 
 //turn route into link for image
+//need to test TODO DELETE THIS COMMENT AFTER TEST
 router.get('/api/blogpost/:id/image', async (req, res) => {
     try {
         const blogpost = await BlogPost.findOne({ where: { id: req.params.id } });
@@ -88,16 +89,20 @@ router.get('/api/blogpost/:id/image', async (req, res) => {
 router.patch('/api/blogpost/:id', sessionChecker, async (req, res) => {
     try {
         const existingBp = await BlogPost.findOne({ where: { id: req.params.id, UserId:req.session.user.id } });
+        if(!existingBp) {
+            return res.sendStatus(404)
+        }
         const updatedBp =  await existingBp.update(req.body)
         return res.send(updatedBp)
     } catch (e) {
-        res.status(400).send(e)
+        res.status(401).send(e)
     }
 })
 
 router.delete('/api/blogpost/:id', sessionChecker, async (req, res) => {
     try {
-        await BlogPost.destroy({ where: { id: req.params.id, UserId: req.session.user.id  } })
+        const existingBp = await BlogPost.findOne({ where: { id: req.params.id, UserId: req.session.user.id  } })
+        await existingBp.destroy()
         res.sendStatus(200)
     } catch (e) {
         res.sendStatus(404)

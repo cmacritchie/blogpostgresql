@@ -4,8 +4,8 @@ const sessionChecker = (req, res, next) => {
         next()
     } else {
         // console.log('you are not good to go')
-        //res.status(404).send("Sorry can't find that!")
-        next();
+        res.status(401).send("Unauthorized")
+        // next();
     }    
 };
 
