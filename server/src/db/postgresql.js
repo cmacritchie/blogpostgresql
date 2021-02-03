@@ -1,7 +1,7 @@
 const { Sequelize } = require('sequelize');
 const keys = require('../../config/keys')
-console.log('process.env.NODE_ENV', process.env.NODE_ENV)
-console.log('keys', keys)
+// console.log('process.env.NODE_ENV', process.env.NODE_ENV)
+// console.log('keys', keys)
 
 const database = new Sequelize(keys.postgresDBurl)
 
@@ -15,3 +15,5 @@ try {
 }
 
 module.exports = database;
+
+// OLD

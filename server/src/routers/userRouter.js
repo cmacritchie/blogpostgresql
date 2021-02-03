@@ -1,7 +1,8 @@
 const express = require('express');
 const sessionChecker = require('../middleware/sessionCheck')
-const User = require('../models/userModel');
-const BlogPost = require('../models/blogModel');
+// const User = require('../models/userModel');
+// const BlogPost = require('../models/blogModel');
+const { BlogPost, User } = require('../db/index')
 
 const router = new express.Router()
 

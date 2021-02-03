@@ -9,6 +9,7 @@ const keys = require('../config/keys')
 
 //Databases
 require('./db/postgresql')
+require('./db/index')
 
 //assoications
 const entities = {

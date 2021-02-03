@@ -1,6 +1,7 @@
 const express = require('express')
-const BlogPost = require('../models/blogModel');
-const User = require('../models/userModel')
+// const BlogPost = require('../models/blogModel');
+// const User = require('../models/userModel')
+const { BlogPost, User } = require('../db/index')
 const sessionChecker = require('../middleware/sessionCheck')
 const multer = require('multer')  //for image upload
 const sharp = require('sharp') 

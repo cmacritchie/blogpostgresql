@@ -1,6 +1,6 @@
 language: node_js
 node_js:          #version of nodejs
-  -"8"
+  - "8"
 dist: trusty      #ubuntu Trusty
 services:
   - postgresql    #postgres service for testing
