@@ -39,7 +39,7 @@ const userOptions = {
 }
 
 const User = database.define('Users', userSchema, userOptions)
-// User.sync({force: true})
+User.sync({force: true})
 
 User.prototype.validPassword = function(password) {
     return bcrypt.compareSync(password, this.password)

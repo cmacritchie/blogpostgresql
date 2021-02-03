@@ -22,6 +22,10 @@ https://www.codementor.io/@mayowa.a/how-to-build-a-simple-session-based-authenti
 NOTE: We could include the image url when grabbing the users, but that slows down the JSON fetch. Instead, set up the route and query it from there
 
 Send emails too? could be good
+dEv Environment secret Key session.
+Pagination
+Search
+Running test travis
 
 CREATE TABLE users (id SERIAL PRIMARY KEY, name TEXT NOT NULL, email TEXT NOT NULL, password TEXT NOT NULL, token TEXT)
 INSERT INTO users(name, email, password) VALUES ('Hugh Jackman', 'jackman@xmen.com', 'swordfish' )

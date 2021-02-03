@@ -1,7 +1,10 @@
+require('dotenv').config();
 const request = require('supertest')
 const app = require('../app')
+// require('../db/postgresql')
 const User = require('../models/userModel')
 const BlogPost = require('../models/blogModel')
+// require('dotenv').config();
 
 describe('login users', () => {
     const sessionUser = {

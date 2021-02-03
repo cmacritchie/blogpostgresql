@@ -40,7 +40,7 @@ const blogSchema = {
 }
 
 const BlogPost = database.define('BlogPost', blogSchema)
-// BlogPost.sync({force: true})
+BlogPost.sync({force: true})
 
 BlogPost.prototype.toJSON = function() {
     const blogpost = this.dataValues

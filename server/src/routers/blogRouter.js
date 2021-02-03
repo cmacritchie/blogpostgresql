@@ -54,9 +54,11 @@ router.get('/api/blogpost/:id', async (req, res) => {
     router.post('/api/blogpost', sessionChecker, upload.single('upload'), async (req, res) => {   //uses upload header in key
     try {
         let buffer
+        console.log("test 1")
         if(req.file) {
             buffer = await sharp(req.file.buffer).resize({ width: 250, height: 250 }).png().toBuffer()
         }
+        console.log("test 2")
         const blogpost = BlogPost.build({
             ...req.body,
             imageUrl: buffer
