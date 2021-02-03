@@ -10,6 +10,10 @@ cache:
   directories:
     - server/node_modules
     - client/node_modules
+before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres
+before_install:
+  - cd server
 install:
   - npm install     #installs dependencies server
   - npm run build   #installs dependencies client and builds client
