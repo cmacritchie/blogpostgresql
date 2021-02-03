@@ -4,11 +4,14 @@
   "description": "run postgresql  brew services start postgresql",
   "main": "index.js",
   "scripts": {
-    "server": "env-cmd -f ./config/dev.env nodemon src/index.js",
+    "start": "node src/index.js",
+    "pre-production": "SET NODE_ENV=preproduction&& nodemon src/index.js",
+    "server": "SET NODE_ENV=dev&& nodemon src/index.js",
     "client": "npm run start --prefix ../client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "test": "env-cmd -f ./config/test.env jest",
-    "test:watch": "jest --watch"
+    "build": "npm install --prefix ../client && npm run build --prefix ../client",
+    "test": "SET NODE_ENV=test&& jest",
+    "test:watch": "SET NODE_ENV=dev&& jest --watch"
   },
   "author": "",
   "license": "ISC",
@@ -16,6 +19,7 @@
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "moment": "^2.29.1",

@@ -1,6 +1,9 @@
 const Sequelize = require('sequelize');
+const sequelize = require('../db/sequelizeIndex')
+const db = require('../db/index') //need this or it doesn't work check console.log
 const bcrypt = require('bcrypt');
-const database = require('../db/postgresql');
+// const database = require('../db/postgresql');
+const BlogPost = require('./blogModel')
 const { DataTypes } = Sequelize
 
 const userSchema = {
@@ -38,7 +41,8 @@ const userOptions = {
     },
 }
 
-const User = database.define('Users', userSchema, userOptions)
+const User = sequelize.define('Users', userSchema, userOptions)
+// User.hasMany(BlogPost, { foreignKey: 'UserId' });
 // User.sync({force: true})
 
 User.prototype.validPassword = function(password) {

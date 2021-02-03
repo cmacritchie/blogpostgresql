@@ -1,0 +1,19 @@
+language: node_js
+node_js:          #version of nodejs
+  - "8"
+dist: trusty      #ubuntu Trusty
+services:
+  - postgresql    #postgres service for testing
+env:
+  - NODE_ENV=ci PORT=3000
+cache:
+  directories:
+    - server/node_modules
+    - client/node_modules
+install:
+  - npm install     #installs dependencies server
+  - npm run build   #installs dependencies client and builds client
+script:
+  - nohup npm run start & #nohup (nohangup): if shell is closed don't kill anything this command creates &: run this command in a subshell in the background so we can run npm test
+  - sleep 3
+  - npm run test

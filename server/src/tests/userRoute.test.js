@@ -1,7 +1,19 @@
+require('dotenv').config();
 const request = require('supertest')
 const app = require('../app')
-const User = require('../models/userModel')
-const BlogPost = require('../models/blogModel')
+const database =  require('../db/sequelizeIndex')
+const { User, BlogPost } = require('../db/index')
+// const User = require('../models/userModel')
+// const BlogPost = require('../models/blogModel');
+// require('../models/associations')
+// const entities = {
+//     users: User,
+//     blogPost: BlogPost
+// }
+
+// User.hasMany(BlogPost, { foreignKey: 'UserId' })
+// BlogPost.belongsTo(User)
+
 
 describe('login users', () => {
     const sessionUser = {
@@ -14,6 +26,16 @@ describe('login users', () => {
     let otherUserPost
     
     const agent = request.agent(app);
+
+    //Fix tests --https://github.com/facebook/jest/issues/7287
+    afterAll(async done => {
+        await BlogPost.destroy({ where: {} }) //uncomment later
+        await User.destroy({ where: {} }) //uncomment later
+        console.log('closing up')
+        database.close()
+        done()
+
+      });
 
     beforeAll(async () => {
         // await User.destroy({ where: {} }) //uncomment later
@@ -92,7 +114,7 @@ describe('login users', () => {
             testPost = testPostRaw.dataValues
         })
     
-        test('can delete their posts', async () => {
+        it('can delete their posts', async () => {
             await agent.delete(`/api/blogpost/${testPost.id}`)
                 .send()
                 .expect(200)

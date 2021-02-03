@@ -1,5 +1,7 @@
 const Sequelize = require('sequelize');
-const database = require('../db/postgresql');
+// const database = require('../db/postgresql');
+const sequelize = require('../db/sequelizeIndex')
+const db = require('../db/index') //need this or it doesn't work check console.log
 const User = require('./userModel')
 const { DataTypes } = Sequelize
 
@@ -39,7 +41,8 @@ const blogSchema = {
     }
 }
 
-const BlogPost = database.define('BlogPost', blogSchema)
+const BlogPost = sequelize.define('BlogPost', blogSchema)
+// BlogPost.belongsTo(User)
 // BlogPost.sync({force: true})
 
 BlogPost.prototype.toJSON = function() {

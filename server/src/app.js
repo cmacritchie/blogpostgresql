@@ -1,12 +1,15 @@
+require('dotenv').config();
 const express = require('express')
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-const morgan = require('morgan');
+// const morgan = require('morgan');
 const cookieCheck = require('./middleware/cookieCheck');
+const keys = require('../config/keys')
 
 //Databases
 require('./db/postgresql')
+require('./db/index')
 
 //assoications
 const entities = {
@@ -28,7 +31,7 @@ const app = express()
 //using
 app.set('trust proxy', 1) //TODO check why we do this
 // app.use(express.json()) //TODO check why we do this
-app.use(morgan('dev')) 
+// app.use(morgan('dev')) 
 app.use(bodyParser.json()) //TODO check why we do this
 app.use(bodyParser.urlencoded({ extended: true }));  //parse parameters to req.body
 app.use(cookieParser()); //access cookies in browser
@@ -41,7 +44,7 @@ app.use(cookieParser()); //access cookies in browser
 //express-session
 app.use(session({
     key: 'user_sid',
-    secret: 'somerandonstuffs',
+    secret: keys.sessionSecret,
     resave: true,
     saveUninitialized: false,
     cookie: {
@@ -66,6 +69,15 @@ app.use(cookieCheck)
 app.use(userRouter)
 app.use(blogRouter)
 
+console.log("environemnt", process.env.NODE_ENV)
+if (['production', 'ci', 'preproduction'].includes(process.env.NODE_ENV)) {
+    app.use(express.static(__dirname + '/../../client/build'));
+  
+    const path = require('path');
+    app.get('*', (req, res) => {
+      res.sendFile(path.resolve('client', 'build', 'index.html'));
+    });
+}
 // app.listen(port, () => {
 //     console.log(`server is up on port ${port}`)
 // })
