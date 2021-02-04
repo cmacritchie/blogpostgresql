@@ -27,9 +27,6 @@ const userSchema = {
         type: DataTypes.DATEONLY,
         allowNull: false,
         defaultValue: Sequelize.NOW
-    },
-    token: {
-        type: DataTypes.STRING
     }
 }
 

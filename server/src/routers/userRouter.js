@@ -82,7 +82,7 @@ router.post('/api/login', async (req, res) => {
         return res.status(404).send()
     }
     else {
-        req.session.user = user.dataValues.toJSON()
+        req.session.user = user.toJSON()
         return res.status(200).send(user.toJSON())
     }
 })
