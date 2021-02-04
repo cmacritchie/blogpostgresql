@@ -17,7 +17,7 @@ before_install:
   - cd server
 install:
   - npm install     #installs dependencies server
-  - npm run build   #installs dependencies client and builds client
+  - CI=false npm run build   #installs dependencies client and builds client
 script:
   - nohup npm run start & #nohup (nohangup): if shell is closed don't kill anything this command creates &: run this command in a subshell in the background so we can run npm test
   - sleep 3
