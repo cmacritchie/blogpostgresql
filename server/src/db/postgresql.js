@@ -15,5 +15,3 @@ try {
 }
 
 module.exports = database;
-
-// OLD

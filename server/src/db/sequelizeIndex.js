@@ -1,6 +1,8 @@
 const Sequelize = require('sequelize');
 const keys = require('../../config/keys')
 
+console.log("environment", process.env.NODE_ENV)
+console.log("KEYS", keys)
 const sequilize = new Sequelize(keys.postgresDBurl)
 
 try {

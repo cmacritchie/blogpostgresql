@@ -8,7 +8,7 @@ const cookieCheck = require('./middleware/cookieCheck');
 const keys = require('../config/keys')
 
 //Databases
-require('./db/postgresql')
+// require('./db/postgresql')
 require('./db/index')
 
 //assoications

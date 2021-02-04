@@ -10,7 +10,8 @@
     "client": "npm run start --prefix ../client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "build": "npm install --prefix ../client && npm run build --prefix ../client",
-    "test": "SET NODE_ENV=test&& jest",
+    "test": "jest",
+    "windows:test": "SET NODE_ENV=test&& jest",
     "test:watch": "SET NODE_ENV=dev&& jest --watch"
   },
   "author": "",

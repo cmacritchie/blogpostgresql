@@ -1,23 +1,24 @@
 language: node_js
 node_js:          #version of nodejs
-  - node
-  - 15
+  - 12
+  - 11
 dist: trusty      #ubuntu Trusty
 services:
   - postgresql    #postgres service for testing
 env:
   - NODE_ENV=ci PORT=3000
+warnings_are_errors: false
 cache:
   directories:
     - server/node_modules
     - client/node_modules
 before_script:
-  - psql -c 'create database travis_ci_test;' -U postgres
+  - psql -c 'create database testing_db;' -U postgres
 before_install:
   - cd server
 install:
   - npm install     #installs dependencies server
-  - npm run build   #installs dependencies client and builds client
+  - CI=false npm run build   #installs dependencies client and builds client
 script:
   - nohup npm run start & #nohup (nohangup): if shell is closed don't kill anything this command creates &: run this command in a subshell in the background so we can run npm test
   - sleep 3

@@ -22,7 +22,7 @@ const NavBar = () => {
             {user.isAuthenticated &&
             <>
                 <li><NavLink to='/post-article'>New Article</NavLink></li>
-                <li><a onClick={()=> dispatch(logout(history))}>Logout</a></li>
+                <li><button onClick={()=> dispatch(logout(history))}>Logout</button></li>
                 <li><span>Welcome {user.userInfo.name}</span></li>
             </>
             }
