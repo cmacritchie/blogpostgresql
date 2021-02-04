@@ -6,7 +6,7 @@ const initialState = {
     loaded:false
 }
 
-export default function(state = initialState, action) {
+export default function blogReducer(state = initialState, action) {
     const { type, payload} = action;
     switch(type) {
         case BlogActionTypes.FETCH_ARTICLES:

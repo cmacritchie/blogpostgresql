@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 
-import { HashRouter, Router,  Route } from 'react-router-dom';
-import Cookie from 'js-cookie'
+import { HashRouter,  Route } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import NavBar from './components/NavBar'
 
@@ -25,14 +24,15 @@ function App() {
     dispatch(getMe())
   })
 
+  //Add protected Route
   return (
     <HashRouter >
       <NavBar />
       <Route exact path="/" component={Home} />
       <Route exact path="/login" component={Login} />
       <Route path="/sign-up" component={Signup} />
-      <Route exact path="/post-article" component={NewArticle} />
-      <Route exact path="/post-article/:articleid" component={NewArticle} />
+      <Route exact path="/post-article" component={protectedRoute(NewArticle)} />
+      <Route exact path="/post-article/:articleid" component={protectedRoute(NewArticle)} />
     </HashRouter>
   );
 }

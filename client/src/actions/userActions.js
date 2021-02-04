@@ -51,7 +51,7 @@ export const loginUser = (credentials, history) => async dispatch => {
 
 export const logout = (history) => async dispatch => {
     try {
-        const res = await axios.post('/api/logout')
+        await axios.post('/api/logout')
         dispatch({ type: UserActionTypes.LOGOUT })
         history.push('/')
     } catch (e) {

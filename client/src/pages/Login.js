@@ -16,7 +16,7 @@ const Login = () => {
                 dispatch(failAcknowledge()) 
             } 
         }
-    },[])
+    })
 
     const submit = (info) => {
         dispatch(loginUser(info, history))

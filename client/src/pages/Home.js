@@ -14,7 +14,7 @@ const Home = () => {
         if(!blog.loaded) {
             dispatch(getArticles())
         }
-    },[blog.loaded])
+    })
 
     if(!blog.loaded) {
         return <div className="blog-posts">Loading...</div>
@@ -50,7 +50,7 @@ const Home = () => {
                             <>
                                 {/* <img src={`/api/blogpost/1/avatar`} />  */}
                                 {/* This is an alternative if the article had the image */}
-                                <img src={`data:image/jpg;base64, ${Buffer.from(article.imageUrl.data).toString('base64')}`} />
+                                <img alt="article image" src={`data:image/jpg;base64, ${Buffer.from(article.imageUrl.data).toString('base64')}`} />
                             </>
                             }
                             {/* The below works too: */}

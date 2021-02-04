@@ -8,7 +8,6 @@ import { useHistory } from "react-router-dom";
 const ArticleForm = ({existingArticle, onSubmit }) => {
     const [article, setArticle] = useState(existingArticle)
     useEffect(() => {
-        console.log("useffect?")
         setArticle(existingArticle)
     },[existingArticle])
 
