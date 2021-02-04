@@ -1,7 +1,7 @@
 language: node_js
 node_js:          #version of nodejs
-  - node
-  - 15
+  - 12
+  - 11
 dist: trusty      #ubuntu Trusty
 services:
   - postgresql    #postgres service for testing
